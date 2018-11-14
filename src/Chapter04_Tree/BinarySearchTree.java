@@ -1,7 +1,10 @@
 package Chapter04_Tree;
 
 public class BinarySearchTree<T extends Comparable<? super T>> {
-  private static class BinaryNode<T> {
+  public static class BinaryNode<T> {
+    /**
+     * public static inner class can be extended by the external class's subclass' inner class.
+     */
     T val;
     BinaryNode<T> left;
     BinaryNode<T> right;
@@ -21,6 +24,10 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
 
   }
 
+  /**
+   * if attribute is private, subclass can have but can't access directly. subclass can only access
+   * by getXXX() or setXXX().
+   */
   private BinaryNode<T> root;
 
   public boolean contains(T val) {
@@ -43,7 +50,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
 
   public BinarySearchTree() {
     /**
-     * if BST is null, then root Node is null. Node must have val.
+     * if BST is null, then root TreeNode is null. TreeNode must have val.
      */
     root = null;
   }

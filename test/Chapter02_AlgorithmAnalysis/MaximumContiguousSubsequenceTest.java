@@ -9,7 +9,7 @@ public class MaximumContiguousSubsequenceTest {
   /**
    * you must assign row length of 2-D array.
    */
-  int[][] sequences = new int[10][];
+  int[][] sequences = new int[3][];
 
   @Before
   public void setUp() throws Exception {

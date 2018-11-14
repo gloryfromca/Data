@@ -32,7 +32,7 @@ public class BinarySearchTreeTest {
   public void isEmpty() {
     Assert.assertEquals(false, theTree.isEmpty());
     theTree = new BinarySearchTree<Integer>();
-    Assert.assertEquals(false, theTree.isEmpty());
+    Assert.assertEquals(true, theTree.isEmpty());
 
   }
 
