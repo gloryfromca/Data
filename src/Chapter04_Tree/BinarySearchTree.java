@@ -8,20 +8,49 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
     T val;
     BinaryNode<T> left;
     BinaryNode<T> right;
+    Integer height;
 
     public BinaryNode(T val) {
       /**
        * use `this` to call another constructor.
        */
-      this(val, null, null);
+      this(val, 1);
     }
 
-    public BinaryNode(T val, BinaryNode<T> left, BinaryNode<T> right) {
+    public BinaryNode(T val, int height) {
+      /**
+       * use `this` to call another constructor.
+       */
+      this(val, null, null, height);
+    }
+
+    public BinaryNode(T val, BinaryNode<T> left, BinaryNode<T> right, int height) {
       this.val = val;
       this.left = left;
       this.right = right;
+      this.height = height;
     }
 
+    public Integer getRightHeight() {
+      if (right != null)
+        return right.height;
+      return 0;
+    }
+
+    public Integer getLeftHeight() {
+      if (left != null)
+        return left.height;
+      return 0;
+    }
+
+    public void setHeight() {
+      Integer childrenHeight = getLeftHeight();
+      if (getRightHeight() > childrenHeight) {
+        childrenHeight = getRightHeight();
+      }
+      this.height = childrenHeight + 1;
+
+    }
   }
 
   /**
@@ -100,10 +129,10 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
   public BinaryNode<T> findMin(BinaryNode<T> binaryNode) {
     if (binaryNode == null) {
       return null;
-    } else if (binaryNode.left == null) {
-      return binaryNode;
-    } else {
+    } else if (binaryNode.left != null) {
       return findMin(binaryNode.left);
+    } else {
+      return binaryNode;
     }
   }
 
@@ -151,6 +180,21 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      */
     return binaryNode;
 
+  }
+
+  public void printTree() {
+    if (isEmpty()) {
+      System.out.println("Empty Tree");
+    }
+    printTree(root);
+  }
+
+  public void printTree(BinaryNode<T> binaryNode) {
+    if (binaryNode != null) {
+      printTree(binaryNode.left);
+      System.out.println(binaryNode.val);
+      printTree(binaryNode.right);
+    }
   }
 
 

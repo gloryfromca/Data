@@ -1,19 +1,48 @@
 package Chapter04_Tree;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Random;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 
+@RunWith(Parameterized.class)
 public class BinarySearchTreeTest {
 
-
+  private Class theTreeClass;
   private BinarySearchTree<Integer> theTree;
   private int[] arrayList;
 
+
+  @Parameterized.Parameters
+  public static Collection<Object[]> differentClass() {
+    Collection<Object[]> params = new ArrayList() {};
+    params.add(new Object[] {BinarySearchTree.class});
+    params.add(new Object[] {AvlTree.class});
+    return params;
+  }
+
+  public BinarySearchTreeTest(Class theTreeClass) {
+    /**
+     * the constructor of class can't be decorated by `void`.
+     */
+    this.theTreeClass = theTreeClass;
+    this.arrayList = null;
+    this.theTree = null;
+  }
+
   @Before
   public void setUp() throws Exception {
-    theTree = new BinarySearchTree<Integer>();
+    if (this.theTreeClass == BinarySearchTree.class) {
+
+      theTree = (BinarySearchTree<Integer>) this.theTreeClass.newInstance();
+    } else {
+      theTree = (AvlTree<Integer>) this.theTreeClass.newInstance();
+    }
     arrayList = new int[] {1, 24, 3, 49, 8, 52, 6};
     for (int i : arrayList) {
       theTree.insert(i);
@@ -72,6 +101,52 @@ public class BinarySearchTreeTest {
     int min = theTree.findMin();
     Assert.assertEquals(-1000, min);
 
+  }
+
+  @Test
+  public void CheckBalance() {
+    Random random = new Random();
+    if (this.theTreeClass == BinarySearchTree.class) {
+      System.out.println("1 BinarySearchTree is not balanced");
+    } else {
+      AvlTree<Integer> theTree = (AvlTree<Integer>) this.theTree;
+      System.out.println("check AvlTree start...");
+      Boolean randBalanceResult;
+
+      for (int x = 0; x < 1000; x++) {
+        Boolean isRemove = random.nextBoolean();
+        Integer randomInt = random.nextInt(150);
+        System.out.println(String.format("isRemove:%s randomInt:%d", isRemove, randomInt));
+        if (isRemove) {
+          theTree.remove(randomInt);
+        } else {
+          theTree.insert(randomInt);
+        }
+        randBalanceResult = theTree.checkBalance();
+        System.out.println(String.format("randBalanceResult: %s", randBalanceResult));
+
+      }
+    }
+  }
+
+  @Test
+  public void CheckBalance2() {
+    Random random = new Random();
+    if (this.theTreeClass == BinarySearchTree.class) {
+      System.out.println("2 BinarySearchTree is not balanced");
+    } else {
+      AvlTree<Integer> theTree = (AvlTree<Integer>) this.theTree;
+      System.out.println("2 check AvlTree start...");
+      Boolean randBalanceResult;
+
+      for (int x = 0; x < 1000; x++) {
+        Integer randomInt = random.nextInt(300);
+        theTree.insert(randomInt);
+        randBalanceResult = theTree.checkBalance();
+        System.out.println(String.format("2 randBalanceResult: %s", randBalanceResult));
+
+      }
+    }
   }
 
 }
