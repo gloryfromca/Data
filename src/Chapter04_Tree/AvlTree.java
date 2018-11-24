@@ -62,6 +62,7 @@ public class AvlTree<T extends Comparable<? super T>> extends BinarySearchTree<T
 
         avlNode.right = centerNode.left;
         centerNode.left = avlNode;
+        avlNode.setHeight();
       }
 
     } else if (leftHeight - rightHeight > 1) {
@@ -85,6 +86,7 @@ public class AvlTree<T extends Comparable<? super T>> extends BinarySearchTree<T
          * encounter very strange bug which has unstable behavior.
          */
         centerNode.right = avlNode;
+        avlNode.setHeight();
       }
 
     }
@@ -172,12 +174,9 @@ public class AvlTree<T extends Comparable<? super T>> extends BinarySearchTree<T
       avlNode.left = remove(val, avlNode.left);
     } else {
       if (avlNode.left != null && avlNode.right != null) {
-        AvlNode<T> right = findMin(avlNode.right);
-        avlNode.val = right.val;
-        avlNode.right = remove(val, avlNode.right);
-
+        avlNode.val = findMin(avlNode.right).val;
+        avlNode.right = remove(avlNode.val, avlNode.right);
       } else if (avlNode.left != null) {
-
         centerNode = avlNode.left;
       } else {
         centerNode = avlNode.right;
@@ -220,6 +219,21 @@ public class AvlTree<T extends Comparable<? super T>> extends BinarySearchTree<T
       return checkBalance(root.left) && checkBalance(root.right);
     }
     return false;
+  }
+
+  public void printTree() {
+    if (isEmpty()) {
+      System.out.println("Empty Tree");
+    }
+    printTree(root);
+  }
+
+  public void printTree(AvlNode<T> avlNode) {
+    if (avlNode != null) {
+      printTree(avlNode.left);
+      System.out.println(avlNode.val);
+      printTree(avlNode.right);
+    }
   }
 
 }

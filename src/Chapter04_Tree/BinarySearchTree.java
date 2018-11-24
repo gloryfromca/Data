@@ -3,7 +3,7 @@ package Chapter04_Tree;
 public class BinarySearchTree<T extends Comparable<? super T>> {
   public static class BinaryNode<T> {
     /**
-     * public static inner class can be extended by the external class's subclass' inner class.
+     * public static inner class can be extended by the external class' subclass' inner class.
      */
     T val;
     BinaryNode<T> left;
@@ -196,7 +196,6 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
       printTree(binaryNode.right);
     }
   }
-
 
 
 }
