@@ -7,6 +7,7 @@ public class QuadraticProbingHashTable<T extends QuadraticHashable>
 
   private static final Integer DEFAULT_TABLE_SIZE = 11;
   private T[] array;
+  private Class<T> elementType;
 
   public QuadraticProbingHashTable(Class<T> elementType) {
     this(DEFAULT_TABLE_SIZE, elementType);
@@ -15,6 +16,7 @@ public class QuadraticProbingHashTable<T extends QuadraticHashable>
   public QuadraticProbingHashTable(Integer size, Class<T> elementType) {
     allocateArray(size, elementType);
     makeEmpty();
+    this.elementType = elementType;
   }
 
   private void allocateArray(int size, Class<T> elementType) {
@@ -32,7 +34,8 @@ public class QuadraticProbingHashTable<T extends QuadraticHashable>
 
   boolean isActive(Integer currentPos) {
     /**
-     * isActive means not null and T.isActive()
+     * isActive means not null and T.isActive() collection has same method with element, for reason
+     * of null case.
      */
     return array[currentPos] != null && array[currentPos].isActive();
   }
@@ -60,7 +63,7 @@ public class QuadraticProbingHashTable<T extends QuadraticHashable>
     while (array[currentHashCode] != null && !array[currentHashCode].equals(x)) {
       currentHashCode += offset;
       offset += 2;
-      currentHashCode = currentSize % array.length;
+      currentHashCode = currentHashCode % array.length;
       if (currentHashCode < 0)
         currentHashCode += array.length;
     }
@@ -85,7 +88,24 @@ public class QuadraticProbingHashTable<T extends QuadraticHashable>
     currentSize = 0;
   }
 
+  public Integer getHashTableSize() {
+    return array.length;
+  }
+
   private void reHash() {
+    T[] oldArray = array;
+
+    allocateArray(nextPrime(array.length * 2), elementType);
+    currentSize = 0;
+
+    for (int i = 0; i < oldArray.length; i++) {
+      if (oldArray[i] != null && oldArray[i].isActive()) {
+        /**
+         * don't use isActive() of QuadraticProbingHashTable.
+         */
+        insert(oldArray[i]);
+      }
+    }
 
   }
 

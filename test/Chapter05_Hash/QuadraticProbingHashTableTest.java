@@ -1,5 +1,6 @@
 package Chapter05_Hash;
 
+import java.util.Random;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,6 +11,7 @@ public class QuadraticProbingHashTableTest {
   QuadraticProbingHashTable<QuadraticEmployee> quadraticHashTable;
   QuadraticEmployee backEnd;
   QuadraticEmployee frontEnd;
+  Random random = new Random();
 
   @Before
   public void setUp() throws Exception {
@@ -52,6 +54,20 @@ public class QuadraticProbingHashTableTest {
   public void printHashTable() {
     quadraticHashTable.insert(frontEnd);
     quadraticHashTable.printHashTable();
+  }
+
+  @Test
+  public void reHash() {
+    quadraticHashTable.makeEmpty();
+    Integer SizeOfBegin = quadraticHashTable.getHashTableSize();
+    Assert.assertEquals(true, 11 == SizeOfBegin);
+    for (int i = 0; i < 20; i++) {
+      Integer randomInteger = random.nextInt(10000);
+      QuadraticEmployee quadraticEmployee = new QuadraticEmployee(randomInteger.toString());
+      quadraticHashTable.insert(quadraticEmployee);
+    }
+    Assert.assertEquals(true, SizeOfBegin < quadraticHashTable.getHashTableSize());
+
   }
 
 }

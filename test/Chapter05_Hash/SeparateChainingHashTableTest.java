@@ -1,5 +1,6 @@
 package Chapter05_Hash;
 
+import java.util.Random;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,6 +11,7 @@ public class SeparateChainingHashTableTest {
   SeparateChainingHashTable<Employee> separateChainingHashTable;
   Employee backEnd;
   Employee frontEnd = new Employee("chandler", 22, 13000.0);
+  Random random = new Random();
 
   @Before
   public void setUp() throws Exception {
@@ -63,5 +65,19 @@ public class SeparateChainingHashTableTest {
   @Test
   public void nextPrime() {
     Assert.assertEquals(SeparateChainingHashTable.nextPrime(102), 103);
+    Assert.assertEquals(SeparateChainingHashTable.nextPrime(202), 211);
+  }
+
+  @Test
+  public void reHash() {
+    separateChainingHashTable.makeEmpty();
+    Integer SizeOfBegin = separateChainingHashTable.getHashTableSize();
+    Assert.assertEquals(true, 101 == SizeOfBegin);
+    for (int i = 0; i < 200; i++) {
+      Integer randomInteger = random.nextInt(10000);
+      separateChainingHashTable.insert(new Employee(randomInteger.toString()));
+    }
+    Assert.assertEquals(true, SizeOfBegin < separateChainingHashTable.getHashTableSize());
+
   }
 }

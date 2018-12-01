@@ -76,9 +76,27 @@ public class SeparateChainingHashTable<T extends Hashable> {
     }
   }
 
+  public Integer getHashTableSize() {
+    return theLinkedLists.length;
+  }
+
   private void reHash() {
+    LinkedList<T>[] oldLinkedLists = theLinkedLists;
+
+    theLinkedLists = new LinkedList[nextPrime(theLinkedLists.length * 2)];
+    for (int i = 0; i < theLinkedLists.length; i++) {
+      theLinkedLists[i] = new LinkedList<>();
+    }
+    currentSize = 0;
+
+    for (int i = 0; i < oldLinkedLists.length; i++) {
+      for (T x : oldLinkedLists[i]) {
+        insert(x);
+      }
+    }
 
   }
+
 
   private int myHash(T x) {
     Integer originHashValue = x.hashCode();
