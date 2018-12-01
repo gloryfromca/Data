@@ -9,6 +9,13 @@ public interface Hashable {
 }
 
 
+interface QuadraticHashable extends Hashable {
+  boolean isActive();
+
+  void setActive(Boolean isActive);
+}
+
+
 class Employee implements Hashable {
 
   private String name;
@@ -38,5 +45,33 @@ class Employee implements Hashable {
   @Override
   public String toString() {
     return String.format("name: %s age: %d salary: %f", name, age, salary);
+  }
+}
+
+
+class QuadraticEmployee extends Employee implements QuadraticHashable {
+  private boolean active = true;
+
+  public QuadraticEmployee(String name) {
+    super(name);
+
+  }
+
+  public QuadraticEmployee(String name, Integer age, Double salary) {
+    super(name, age, salary);
+  }
+
+  @Override
+  public boolean isActive() {
+    return active;
+  }
+
+  @Override
+  public void setActive(Boolean isActive) {
+    active = isActive;
+  }
+
+  public String toString() {
+    return String.format("%s isActive: %b", super.toString(), isActive());
   }
 }

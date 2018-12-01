@@ -6,7 +6,7 @@ public class SeparateChainingHashTable<T extends Hashable> {
   private static final Integer DEFAULT_TABLE_SIZE = 101;
 
   private LinkedList<T>[] theLinkedLists;
-  private Integer currentSize = 0;
+  protected Integer currentSize = 0;
 
   public SeparateChainingHashTable() {
     this(DEFAULT_TABLE_SIZE);
