@@ -127,6 +127,17 @@ public class CuckooHashTable<T> {
     return -1;
   }
 
+  public T get(T x) {
+    int index = findPos(x);
+    if (index < 0)
+      return null;
+    return array[index];
+  }
+
+  public T[] getArray() {
+    return array;
+  }
+
   public boolean isEmpty() {
     for (T x : array) {
       if (x != null) {

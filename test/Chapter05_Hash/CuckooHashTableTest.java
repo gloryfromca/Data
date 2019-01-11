@@ -1,6 +1,7 @@
 package Chapter05_Hash;
 
 import java.util.Random;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -134,5 +135,35 @@ public class CuckooHashTableTest {
       cuckooHashTable.insert(tmp.toString());
     }
     Assert.assertTrue(CuckooHashTable.isPrime(cuckooHashTable.getArrayLength()));
+  }
+
+  @Test
+  public void getOne() {
+    for (int i = 0; i < 500; i++) {
+      Integer tmp = i;
+      cuckooHashTable.insert(tmp.toString());
+    }
+    Integer x = 100;
+    String result = cuckooHashTable.get(x.toString());
+    String expected = "100";
+    Assert.assertEquals(true, result.compareTo(expected) == 0);
+
+  }
+
+  @Test
+  public void getArray() {
+    for (int i = 0; i < 5; i++) {
+      Integer tmp = i;
+      cuckooHashTable.insert(tmp.toString());
+    }
+    try {
+
+      String[] a = cuckooHashTable.getArray();
+
+    } catch (ClassCastException e) {
+      System.out.println(e);
+      System.out.println("array is actually a Object[], not T[]!");
+    }
+
   }
 }

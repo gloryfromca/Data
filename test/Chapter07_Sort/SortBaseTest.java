@@ -3,6 +3,7 @@ package Chapter07_Sort;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,6 +21,7 @@ public class SortBaseTest {
     params.add(new Object[] {HeapSort.class});
     params.add(new Object[] {MergeSort.class});
     params.add(new Object[] {ShellSort.class});
+    params.add(new Object[] {SimpleQuickSort.class});
     return params;
   }
 
@@ -42,6 +44,19 @@ public class SortBaseTest {
 
   @Test
   public void sort() {
+    a.sort(testNums);
+    for (int i = 1; i < testNums.length; i++) {
+      Assert.assertEquals(true, testNums[i] >= testNums[i - 1]);
+    }
+  }
+
+  @Test
+  public void sortSameElements() {
+    testNums = new Integer[DEFAULT_TEST_NUMS];
+    for (int i = 0; i < DEFAULT_TEST_NUMS; i++) {
+      testNums[i] = 100;
+    }
+
     a.sort(testNums);
     for (int i = 1; i < testNums.length; i++) {
       Assert.assertEquals(true, testNums[i] >= testNums[i - 1]);
