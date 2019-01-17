@@ -22,6 +22,7 @@ public class SortBaseTest {
     params.add(new Object[] {MergeSort.class});
     params.add(new Object[] {ShellSort.class});
     params.add(new Object[] {SimpleQuickSort.class});
+    params.add(new Object[] {QuickSort.class});
     return params;
   }
 
@@ -29,6 +30,7 @@ public class SortBaseTest {
   Integer[] testNums;
   Random random = new Random();
   private static final int DEFAULT_TEST_NUMS = 1000;
+  private static final int DEFAULT_TEST_NUMS_K = 30;
 
   public SortBaseTest(Class theSortClass) throws Exception {
     a = (SortBase<Integer>) theSortClass.newInstance();
@@ -62,4 +64,21 @@ public class SortBaseTest {
       Assert.assertEquals(true, testNums[i] >= testNums[i - 1]);
     }
   }
+
+  @Test
+  public void quickSort() {
+    Integer[] testNumsK = new Integer[DEFAULT_TEST_NUMS_K];
+    QuickSelect<Integer> qs = new QuickSelect();
+    qs.select(testNums, 0, testNums.length - 1, DEFAULT_TEST_NUMS_K);
+    for (int i = 0; i < DEFAULT_TEST_NUMS_K; i++) {
+      testNumsK[i] = testNums[i];
+    }
+    a.sort(testNumsK);
+    a.sort(testNums);
+    for (int i = 0; i < DEFAULT_TEST_NUMS_K; i++) {
+      Assert.assertEquals(true, testNumsK[i] == testNums[i]);
+    }
+
+  }
+
 }
