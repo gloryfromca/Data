@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Vertex {
-  public int indegree = 0;
+  public int inDegree = 0;
   public int topNum = 0;
   String name;
   List<Edge> toList;

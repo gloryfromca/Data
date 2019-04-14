@@ -20,19 +20,21 @@ class DijkstraVertexItem implements Comparable<DijkstraVertexItem> {
 }
 
 
-public class DijkstraVertex {
+public class DijkstraVertex extends Vertex {
   Map<DijkstraVertex, Double> toMapping;
 
   boolean known;
   double dist;
   DijkstraVertex path;
 
-  DijkstraVertex() {
+  DijkstraVertex(String name) {
+    super(name);
     toMapping = new HashMap<>();
   }
 
-  public void addTo(DijkstraVertex dijkstraVertex, int dist) {
+  public Edge addTo(DijkstraVertex dijkstraVertex, int dist) {
     this.toMapping.put(dijkstraVertex, (double) dist);
+    return new Edge(dijkstraVertex, this, dist);
   }
 
 }

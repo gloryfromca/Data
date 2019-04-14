@@ -20,12 +20,12 @@ class TopSortHelper {
       Vertex dependency = edge.getDependency();
       allVertexs.add(dependee);
       allVertexs.add(dependency);
-      dependee.indegree++;
+      dependee.inDegree++;
     }
     int NUM_VERTICES = allVertexs.size();
 
     for (Vertex vertex : allVertexs) {
-      if (vertex.indegree == 0) {
+      if (vertex.inDegree == 0) {
         q.add(vertex);
       }
     }
@@ -37,7 +37,7 @@ class TopSortHelper {
 
       for (Edge edge : first.fromList) {
         Vertex dependee = edge.getDependee();
-        if (--dependee.indegree == 0) {
+        if (--dependee.inDegree == 0) {
           q.add(dependee);
         }
       }

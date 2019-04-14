@@ -1,11 +1,12 @@
 package Chapter08_DisjointSets;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @RunWith(Parameterized.class)
 public class BaseDisjointSetsTest {
