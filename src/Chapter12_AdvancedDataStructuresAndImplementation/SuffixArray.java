@@ -2,7 +2,7 @@ package Chapter12_AdvancedDataStructuresAndImplementation;
 
 import java.util.Arrays;
 
-public class SuffixArray {
+public class SuffixArray implements ISuffixArray {
 
   private static int computeLCP(String a, String b) {
     int i = 0;
